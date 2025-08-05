@@ -6,9 +6,11 @@ import { fetchQuizQuestions } from './API';
 
 import {QuestionState, Difficulty } from './API';
 
+import { GlobalStyle,Wrapper } from './App.styles';
+
 const TOTAL_QUESTIONS = 10;
 
-type AnswerObject = {
+export type AnswerObject = {
   question: string;
   answer: string;
   correct: boolean;
@@ -73,15 +75,19 @@ const App = () => {
 
 
   return (
-    <div className="App">
+   <>
+   <GlobalStyle/>
+    <Wrapper>
+
+    
       <h1>Quiz App</h1>
-      {gameOver || userAnswers.length == TOTAL_QUESTIONS ? (
+      {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button className='start' onClick={startTrivia}>
         Start
       </button>
       ): null}
       
-      {!gameOver? <p className='score'>Score:</p> : null}
+      {!gameOver? <p className='score'>Score: {score}</p> : null}
       {loading && <p>Loading Question ...</p>}
       {!loading && !gameOver && (
         <QuestionCard
@@ -99,14 +105,22 @@ const App = () => {
         </button>
       ): null} */}
 
-       <button className='next' onClick={nextQuestion}>
+       {/* <button className='next' onClick={nextQuestion}>
           Next Question
-        </button>
+        </button> */}
+
+        {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
+          <button className='next' onClick={nextQuestion}>
+            Next Question
+          </button>
+        ) : null}
 
       
       
      
-    </div>
+    
+    </Wrapper>
+    </> 
   );
 }
  
